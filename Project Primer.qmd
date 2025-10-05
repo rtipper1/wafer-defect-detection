@@ -1,0 +1,57 @@
+---
+format: 
+    revealjs:
+        smaller: true
+---
+
+
+
+## Automated Semiconductor Defect Detection Using Self-Supervised Learning {background-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gwa7OiKNQ0A0p8djDHa-R81qjwhLLR1L8w&s" background-size="cover" }
+
+**PROBLEM STATEMENT** 
+
+**Challenge:** Semiconductor manufacturing loses $50B+ annually to defective wafers. 
+Manual inspection systems are ***time-consuming*** and ***expensive***. 
+
+**Opportunity:** A computer vision system can achieve **>90% defect** detection accuracy using pre-trained data. 
+
+**Who Cares:** 
+- $680B semiconductor industry depends on quality control
+- Industry leaders such as IBM are working on integrating AI to their chip production cycle
+- Reliable chips = reliable infrastructure
+
+
+# Related Work I {background-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gwa7OiKNQ0A0p8djDHa-R81qjwhLLR1L8w&s" background-size="cover" }
+Dosovitskiy, A., et al. (2021). "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale." ICLR.
+
+**Main Contribution:** Vision Transformer (ViT) attains excellent results compared to state-of-the-art convolutional networks while requiring substantially fewer computational resources to train.
+
+**Relation to Project:** ViT is one of the candidate architectures that can be used as a part of this project.
+
+# Related Work II {background-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gwa7OiKNQ0A0p8djDHa-R81qjwhLLR1L8w&s" background-size="cover" }
+T. Nakazawa and D. V. Kulkarni, "Wafer Map Defect Pattern Classification and Image Retrieval Using Convolutional Neural Network," in IEEE Transactions on Semiconductor Manufacturing
+
+**Main Contribution:** Demonstrates CNN-based approach for wafer map defect pattern classification, achieving 95.5% accuracy on real semiconductor manufacturing data and introducing image retrieval for similar defect pattern matching.
+
+**Relation to Project:** Paper utilizes wafer map data which is applicable for our project. This study can be modified using a nocel architecture to get better results.
+
+# Related Work III {background-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gwa7OiKNQ0A0p8djDHa-R81qjwhLLR1L8w&s" background-size="cover" }
+Finn, C., Abbeel, P., & Levine, S. (2017). "Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks" ICML.
+
+**Main Contribution:** Introduces MAML, a meta-learning algorithm that can solve new learning tasks using small number of training samples.
+
+**Relation to Project:**  MAML enables a dynamic defection diagnosis procedure as it is equipped with adaptation to new defect types. This can allow our system to learn new defect categories without making key changes to the architecture.
+
+
+## Metric Computation {background-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gwa7OiKNQ0A0p8djDHa-R81qjwhLLR1L8w&s" background-size="cover" }
+- F-score = 2 × (Precision × Recall) / (Precision + Recall), averaged across all defect types
+**Justification:** F-score is a more realistic efficiency measure for a model.
+- New defect efficiency = F1-score achieved on new defect type after training on exactly 10 example
+**Justification:** Measures real-world deployment capability when new defect patterns emerge
+
+| Performance | F1-Score Range | Few-Shot F1 | Interpretation |
+|-------------|---------------|-------------|----------------|
+| **Poor** | <0.70 | <0.50 | Below human inspector baseline |
+| **Okay** | 0.70-0.85 | 0.50-0.70 | Matches current manual inspection |
+| **Good** | 0.85-0.90 | 0.70-0.80 | Competitive with existing automated systems |
+| **Excellent** | >0.90 | >0.80 | Exceeds current industry capabilities |
