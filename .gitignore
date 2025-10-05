@@ -1,2 +1,15 @@
-checkpoints/
-*.pth
+# Install Git LFS
+brew install git-lfs  # Mac
+# or: git lfs install
+
+# Track .pth files with LFS
+git lfs track "*.pth"
+git lfs track "*.pt"
+
+# Add .gitattributes
+git add .gitattributes
+
+# Now large files will be handled by LFS
+git add checkpoints/best_vit_model.pth
+git commit -m "Add model with LFS"
+git push
