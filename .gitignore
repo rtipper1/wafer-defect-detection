@@ -13,3 +13,5 @@ git add .gitattributes
 git add checkpoints/best_vit_model.pth
 git commit -m "Add model with LFS"
 git push
+
+checkpoints/*.pth
