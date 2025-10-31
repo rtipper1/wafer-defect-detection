@@ -15,3 +15,5 @@ git commit -m "Add model with LFS"
 git push
 
 checkpoints/*.pth
+
+venv/

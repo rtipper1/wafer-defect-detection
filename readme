@@ -1,7 +1,0 @@
-# 1. Train model
-python src/train.py --epochs 20
-# Saves: models/vit_best.pth
-
-# 2. Evaluate on test set
-python src/evaluate.py --checkpoint models/vit_best.pth
-# Outputs: F1-score, confusion matrix, metrics.json
