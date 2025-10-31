@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from torch.optim import AdamW
 from pathlib import Path
+import json
 import data_loader
 import model
 from tqdm import tqdm
@@ -78,6 +79,14 @@ def train_model(num_epochs=20, batch_size=16, learning_rate=1e-4):
     ckpt_dir = Path("checkpoints")
     ckpt_dir.mkdir(parents=True, exist_ok=True)
 
+    # Initialize history dictionary to track training metrics
+    history = {
+        'train_loss': [],
+        'train_acc': [],
+        'val_loss': [],
+        'val_acc': []
+    }
+
     best_val_acc = 0.0
 
     for epoch in range(num_epochs):
@@ -85,6 +94,12 @@ def train_model(num_epochs=20, batch_size=16, learning_rate=1e-4):
 
         train_loss, train_acc = train_one_epoch(vit_model, train_loader, optimizer, criterion, device)
         val_loss, val_acc = validate(vit_model, val_loader, criterion, device)
+
+        # Store metrics in history
+        history['train_loss'].append(float(train_loss))
+        history['train_acc'].append(float(train_acc))
+        history['val_loss'].append(float(val_loss))
+        history['val_acc'].append(float(val_acc))
 
         print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.4f}")
         print(f"Val Loss:   {val_loss:.4f} | Val Acc:   {val_acc:.4f}")
@@ -98,6 +113,12 @@ def train_model(num_epochs=20, batch_size=16, learning_rate=1e-4):
 
     print("\nTraining complete")
     print(f"Best Validation Accuracy: {best_val_acc:.4f}")
+
+    # Save training history to JSON file
+    history_path = Path("history.json")
+    with open(history_path, 'w') as f:
+        json.dump(history, f, indent=2)
+    print(f"✓ Saved training history to {history_path}")
 
     # Optional: Evaluate final model on test set
     test_loss, test_acc = validate(vit_model, test_loader, criterion, device)
